@@ -1,13 +1,14 @@
-insert into Pickle(NumberInStock,Price,Size,Type)
-output inserted. *
-values(1,1,'large', 'fishy')
+-- 20.) top_agent.sql: Which sales agent made the most in sales over all?
+-- Same code as exercise 19, just took out where clause.
 
-select * from Pickle
-
-declare @newStock int = 50
-declare @id int = 7
-
-update Pickle
-set NumberInstock = NumberInStock + @NewStock
-output inserted.*
-where Id = @Id
+SELECT TOP(1) e.EmployeeId, 
+	CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeFullName,
+	SUM(i.Total) AS TotalSales
+FROM Invoice i
+	JOIN Customer c
+		ON c.CustomerId = i.CustomerId
+	JOIN Employee e
+		ON c.SupportRepId = e.EmployeeId
+--WHERE InvoiceDate between '2009-01-01' and '2009-12-31'
+GROUP BY e.EmployeeId, e.FirstName, e.LastName
+ORDER BY SUM(i.Total) DESC

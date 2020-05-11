@@ -1,20 +1,30 @@
--- 21.) sales_agent_customer_count.sql: Provide a query that 
--- shows the count of customers assigned to each sales agent.
-
-
-SELECT *
-FROM Customer
+-- 18.) `sales_agent_total_sales.sql`: 
+-- Provide a query that shows total sales made by each sales agent.
 
 SELECT *
 FROM Employee
 
+SELECT *
+FROM Invoice
 
-SELECT
-	e.EmployeeId, 
+SELECT *
+FROM InvoiceLine
+
+SELECT *
+FROM Customer
+
+
+
+SELECT 
+	SUM(i.Total) AS 'TotalSales',
+	e.EmployeeId,
 	e.Title,
-	Count(c.CustomerId) AS NumberOfCustomers
-FROM Customer c
-	JOIN Employee e
-		ON e.EmployeeId = c.SupportRepId
+	e.LastName,
+	e.FirstName
+FROM Employee e
+	JOIN Customer c
+		ON c.SupportRepId = e.EmployeeId
+	JOIN Invoice i
+		ON i.CustomerId = c.CustomerId
 WHERE e.Title = 'Sales Support Agent'
-GROUP BY e.EmployeeId, E.Title
+GROUP BY e.EmployeeId, e.Title, e.LastName, e.FirstName

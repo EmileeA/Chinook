@@ -1,19 +1,20 @@
--- 27.) top_media_type.sqlSELECT *
+-- 12.) `line_item_track.sql`: 
+-- Provide a query that includes the purchased track name with each invoice line item.
+-- The InvoiceLine table has InvoiceId and TrackId
+-- The Track table has TrackId
+-- Use JOIN to connect 
 
-FROM MediaType
+--SELECT *
+--FROM InvoiceLine
 
-SELECT *
-FROM InvoiceLine
+--SELECT *
+--FROM Track
 
 
-
-SELECT TOP(1) mt.Name,
-	SUM(il.UnitPrice) AS TotalSales,
-	COUNT(mt.Name) AS AmountOfPurchases
+SELECT
+t.Name AS PurchasedTrackName, 
+il.*
 FROM InvoiceLine il
 	JOIN Track t
 		ON il.TrackId = t.TrackId
-	JOIN MediaType mt
-		ON t.MediaTypeId = mt.MediaTypeId	
-GROUP BY mt.Name
-ORDER BY COUNT(mt.Name) DESC: Provide a query that shows the most purchased Media Type.
+ORDER BY (t.Name)

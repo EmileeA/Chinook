@@ -1,9 +1,20 @@
--- 12:44pm
+-- 21.) sales_agent_customer_count.sql: Provide a query that 
+-- shows the count of customers assigned to each sales agent.
 
-select *
-from Pickle 
-where Type = 'Dill'
 
--- another way to write this. I can use variables
+SELECT *
+FROM Customer
 
-declare @type varchar(100) = 'Dill
+SELECT *
+FROM Employee
+
+
+SELECT
+	e.EmployeeId, 
+	e.Title,
+	Count(c.CustomerId) AS NumberOfCustomers
+FROM Customer c
+	JOIN Employee e
+		ON e.EmployeeId = c.SupportRepId
+WHERE e.Title = 'Sales Support Agent'
+GROUP BY e.EmployeeId, E.Title
