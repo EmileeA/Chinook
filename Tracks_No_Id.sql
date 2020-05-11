@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- 16. `tracks_no_id.sql`: Provide a query that shows all the Tracks, but displays no IDs. 
 -- The result should include the Album name, Media type and Genre.
 
@@ -27,3 +28,13 @@ FROM Track t
 	JOIN Album a
 		ON t.AlbumId = a.AlbumId
 ORDER BY a.Title
+=======
+-- 23.) top_country.sql: Which country's customers spent the most?
+
+SELECT TOP(1) i.BillingCountry,
+	SUM(i.Total) AS TotalSales
+FROM Invoice i
+GROUP BY i.BillingCountry
+ORDER BY SUM(i.Total) DESC
+
+>>>>>>> fc427ce50f12a2920c85458851e9f032a3f54fa7
